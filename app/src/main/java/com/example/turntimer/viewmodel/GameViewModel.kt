@@ -1,7 +1,8 @@
 package com.example.turntimer.viewmodel
 
+import android.app.Application
 import android.content.Context
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.turntimer.model.GameState
 import com.example.turntimer.model.Player
@@ -23,7 +24,7 @@ import org.json.JSONObject
  * - Player color persistence to SharedPreferences
  */
 @OptIn(ExperimentalCoroutinesApi::class)
-class GameViewModel(private val context: Context? = null) : ViewModel() {
+class GameViewModel(application: Application) : AndroidViewModel(application) {
 
     // ========== STATE (StateFlow) ==========
 
@@ -50,7 +51,7 @@ class GameViewModel(private val context: Context? = null) : ViewModel() {
     }
 
     private val prefs by lazy {
-        context?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+        getApplication<Application>().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
     }
 
     // ========== TIMER TICKER (Coroutine Flow) ==========
@@ -299,8 +300,6 @@ class GameViewModel(private val context: Context? = null) : ViewModel() {
      * Format: JSONArray of JSONObjects with "name" and "color" fields.
      */
     private fun savePlayers() {
-        if (prefs == null) return
-        
         val jsonArray = JSONArray()
         _players.value.forEach { player ->
             val jsonObj = JSONObject().apply {
@@ -309,7 +308,7 @@ class GameViewModel(private val context: Context? = null) : ViewModel() {
             }
             jsonArray.put(jsonObj)
         }
-        prefs?.edit()?.putString(KEY_PLAYER_NAMES, jsonArray.toString())?.apply()
+        prefs.edit().putString(KEY_PLAYER_NAMES, jsonArray.toString()).apply()
     }
 
     /**
@@ -319,9 +318,7 @@ class GameViewModel(private val context: Context? = null) : ViewModel() {
      * @return List of Pair<name, color> tuples
      */
     private fun loadSavedPlayers(): List<Pair<String, Int>> {
-        if (prefs == null) return emptyList()
-        
-        val savedJson = prefs?.getString(KEY_PLAYER_NAMES, null) ?: return emptyList()
+        val savedJson = prefs.getString(KEY_PLAYER_NAMES, null) ?: return emptyList()
         
         return try {
             val jsonArray = JSONArray(savedJson)
