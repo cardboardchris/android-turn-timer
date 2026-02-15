@@ -43,9 +43,14 @@ class PlayerSetupFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        adapter = PlayerSetupAdapter(onRemoveClick = { playerId ->
-            viewModel.removePlayer(playerId)
-        })
+        adapter = PlayerSetupAdapter(
+            onRemoveClick = { playerId ->
+                viewModel.removePlayer(playerId)
+            },
+            onColorSelected = { playerId, color ->
+                viewModel.changePlayerColor(playerId, color)
+            }
+        )
 
         binding.rvPlayers.layoutManager = LinearLayoutManager(requireContext())
         binding.rvPlayers.adapter = adapter
@@ -100,7 +105,8 @@ class PlayerSetupFragment : Fragment() {
     private fun observePlayers() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.players.collect { players ->
-                adapter.updatePlayers(players)
+                val usedColors = viewModel.getUsedColors()
+                adapter.updatePlayers(players, usedColors)
                 updateUI(players)
             }
         }

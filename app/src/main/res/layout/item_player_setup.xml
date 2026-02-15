@@ -4,40 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:padding="12dp"
-    android:background="@android:color/transparent"
-    android:gravity="center_vertical">
+    android:background="@android:color/transparent">
 
-    <!-- Drag Handle -->
-    <ImageView
-        android:id="@+id/ivDragHandle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:src="@android:drawable/ic_menu_sort_by_size"
-        android:contentDescription="Drag to reorder"
-        android:layout_marginEnd="16dp"
-        android:tint="#AAAAAA" />
-
-    <!-- Player Name -->
-    <TextView
-        android:id="@+id/tvPlayerName"
-        android:layout_width="0dp"
+    <!-- Row 1: Drag Handle, Player Name, Remove Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        tools:text="Player 1" />
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-    <!-- Remove Button -->
-    <ImageButton
-        android:id="@+id/btnRemove"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:src="@android:drawable/ic_menu_close_clear_cancel"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:contentDescription="Remove player"
-        android:layout_marginStart="12dp"
-        android:tint="#FF5252" />
+        <!-- Drag Handle -->
+        <ImageView
+            android:id="@+id/ivDragHandle"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@android:drawable/ic_menu_sort_by_size"
+            android:contentDescription="Drag to reorder"
+            android:layout_marginEnd="16dp"
+            android:tint="#AAAAAA" />
+
+        <!-- Player Name -->
+        <TextView
+            android:id="@+id/tvPlayerName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            tools:text="Player 1" />
+
+        <!-- Remove Button -->
+        <ImageButton
+            android:id="@+id/btnRemove"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Remove player"
+            android:layout_marginStart="12dp"
+            android:tint="#FF5252" />
+
+    </LinearLayout>
+
+    <!-- Row 2: Color Picker (populated programmatically) -->
+    <LinearLayout
+        android:id="@+id/colorContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="40dp" />
 
 </LinearLayout>

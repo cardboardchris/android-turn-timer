@@ -268,7 +268,7 @@ class GameViewModel(private val context: Context? = null) : ViewModel() {
      *
      * @return Set of ARGB color integers
      */
-    private fun getUsedColors(): Set<Int> {
+    fun getUsedColors(): Set<Int> {
         return _players.value.map { it.color }.toSet()
     }
 
