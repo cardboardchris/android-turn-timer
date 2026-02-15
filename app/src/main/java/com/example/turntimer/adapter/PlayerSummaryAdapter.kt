@@ -1,5 +1,6 @@
 package com.example.turntimer.adapter
 
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -56,6 +57,9 @@ class PlayerSummaryAdapter : RecyclerView.Adapter<PlayerSummaryAdapter.PlayerSum
             binding.tvPlayerPosition.text = "${position + 1}."
             binding.tvPlayerName.text = player.name
             binding.tvPlayerTime.text = formatTime(player.elapsedMillis)
+
+            // Set color dot background
+            (binding.viewColorDot.background.mutate() as GradientDrawable).setColor(player.color)
         }
 
         /**
