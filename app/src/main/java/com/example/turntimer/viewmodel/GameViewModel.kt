@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.turntimer.model.GameState
 import com.example.turntimer.model.Player
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import org.json.JSONArray
@@ -21,6 +22,7 @@ import org.json.JSONObject
  * - Pause/resume support
  * - Player color persistence to SharedPreferences
  */
+@OptIn(ExperimentalCoroutinesApi::class)
 class GameViewModel(private val context: Context? = null) : ViewModel() {
 
     // ========== STATE (StateFlow) ==========
