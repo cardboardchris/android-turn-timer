@@ -46,9 +46,6 @@ class GameFragment : Fragment() {
 
     private val viewModel: GameViewModel by activityViewModels()
     private lateinit var adapter: PlayerTimerAdapter
-    private var lastTurnEndTime: Long = 0L
-    private var touchDownX: Float = 0f
-    private var touchDownY: Float = 0f
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +60,6 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupButtons()
-        setupTapToEndTurn()
         setupBackButtonHandler()
         observeGameState()
     }
@@ -96,60 +92,17 @@ class GameFragment : Fragment() {
     }
 
     /**
-     * Set up tap-anywhere-to-end-turn gesture on root view.
-     * 
-     * Behavior:
-     * - Only active during PLAYING state
-     * - Distinguishes tap from scroll (30px movement threshold)
-     * - Excludes Pause and End Game button areas
-     * - 300ms debounce prevents accidental double-taps
-     * - Triggers haptic feedback on successful turn end
-     */
-    private fun setupTapToEndTurn() {
-        binding.root.setOnTouchListener { _, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    touchDownX = event.rawX
-                    touchDownY = event.rawY
-                    false // Don't consume — let children handle if needed
-                }
-                MotionEvent.ACTION_UP -> {
-                    // Only end turn if game is PLAYING
-                    if (viewModel.gameState.value != GameState.PLAYING) return@setOnTouchListener false
-
-                    // Check for minimal movement (distinguish tap from scroll)
-                    val dx = abs(event.rawX - touchDownX)
-                    val dy = abs(event.rawY - touchDownY)
-                    if (dx > 30f || dy > 30f) return@setOnTouchListener false
-
-                    // Check if touch is on excluded buttons
-                    if (isTouchOnView(event, binding.btnPauseResume) ||
-                        isTouchOnView(event, binding.btnEndGame)) {
-                        return@setOnTouchListener false
-                    }
-
-                    // Debounce: 300ms cooldown
-                    val now = System.currentTimeMillis()
-                    if (now - lastTurnEndTime < 300) return@setOnTouchListener true
-                    lastTurnEndTime = now
-
-                    viewModel.endTurn()
-                    triggerHapticFeedback()
-                    true
-                }
-                else -> false
-            }
-        }
-    }
-
-    /**
-     * Check if a touch event occurred within the bounds of a specific view.
-     * Uses screen coordinates for accurate exclusion zone detection.
+     * Check if a touch event occurred on either the Pause/Resume or End Game button.
+     * Used by MainActivity to exclude button taps from the tap-to-end-turn gesture.
      *
      * @param event The MotionEvent to check
-     * @param view The view to test against
-     * @return true if touch is within view bounds, false otherwise
+     * @return true if touch is on an excluded button, false otherwise
      */
+    internal fun isTouchOnExcludedButton(event: MotionEvent): Boolean {
+        return isTouchOnView(event, binding.btnPauseResume) ||
+               isTouchOnView(event, binding.btnEndGame)
+    }
+
     private fun isTouchOnView(event: MotionEvent, view: View): Boolean {
         val location = IntArray(2)
         view.getLocationOnScreen(location)
@@ -186,7 +139,7 @@ class GameFragment : Fragment() {
      * - API 26-30 (O): Uses Vibrator with VibrationEffect
      * - API 24-25: Uses deprecated vibrate(long) method
      */
-    private fun triggerHapticFeedback() {
+    internal fun triggerHapticFeedback() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager = requireContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
             val vibrator = vibratorManager.defaultVibrator
