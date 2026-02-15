@@ -5,6 +5,7 @@ A multi-player turn timer app for Android, built with Kotlin. Track cumulative t
 ## Features
 
 - 👥 Add up to 5 players by name
+- 🎨 Player Color Selection — Choose from 8 vibrant colors during setup; auto-assigned or tap to customize
 - 🔀 Drag-to-reorder player turn order
 - ⏱️ Cumulative timer per player, counting up in MM:SS format
 - ▶️ Start, pause, and resume the game at any time
@@ -14,7 +15,7 @@ A multi-player turn timer app for Android, built with Kotlin. Track cumulative t
 - 📳 Haptic vibration feedback on turn changes
 - 💡 Screen stays on during active play
 - 🛡️ Back button confirmation to prevent accidental game exit
-- 🎨 Modern Material Design 3 dark theme
+- 🎨 Modern Material Design 3 dark theme with animated background color per active player
 
 ## Building the Project
 
@@ -53,9 +54,9 @@ The APK will be generated in `app/build/outputs/apk/debug/`
 
 ## Usage
 
-1. **Player Setup**: Enter player names (2–5 players required). Drag handles to reorder turn sequence. Tap "START GAME" when ready.
-2. **Game Screen**: The active player's name and timer are shown prominently. All players and their cumulative times are listed below. Use "END TURN" to advance to the next player, "PAUSE" to pause the game, or "END GAME" to finish.
-3. **Game Summary**: After ending the game, view each player's total accumulated time. Tap "NEW GAME" to return to setup and start fresh.
+1. **Player Setup**: Enter player names (2–5 players required). Drag handles to reorder turn sequence. Tap any color circle to customize player color from an 8-color palette (auto-assigned by default). Tap "START GAME" when ready.
+2. **Game Screen**: The active player's name and timer are shown prominently with their assigned color as a smooth animated background. All players are listed below with color dots showing their assigned colors. Use "END TURN" to advance to the next player, "PAUSE" to pause the game, or "END GAME" to finish. Text contrast automatically adapts to the background color for readability.
+3. **Game Summary**: After ending the game, view each player's total accumulated time with their assigned color dots. Tap "NEW GAME" to return to setup and start fresh.
 
 ## Tech Stack
 

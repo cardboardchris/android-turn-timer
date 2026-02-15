@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -21,7 +22,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="32dp" />
+        app:layout_constraintBottom_toTopOf="@id/tvActivePlayerTimer"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintVertical_bias="0.35"
+        android:layout_marginTop="0dp" />
 
     <!-- Active Player Timer -->
     <TextView
@@ -36,7 +40,22 @@
         app:layout_constraintTop_toBottomOf="@id/tvActivePlayerName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="48dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Tap Hint -->
+    <TextView
+        android:id="@+id/tvTapHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tap anywhere to end turn"
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintTop_toBottomOf="@id/tvActivePlayerTimer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
     <!-- All Players Label -->
     <TextView
@@ -46,7 +65,7 @@
         android:text="All Players"
         android:textSize="16sp"
         android:textColor="@color/text_secondary"
-        app:layout_constraintTop_toBottomOf="@id/tvActivePlayerTimer"
+        app:layout_constraintTop_toBottomOf="@id/tvTapHint"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="48dp" />
 
@@ -59,24 +78,9 @@
         app:layout_constraintTop_toBottomOf="@id/tvAllPlayersLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btnEndTurn"
+        app:layout_constraintBottom_toTopOf="@id/btnPauseResume"
         tools:listitem="@layout/item_player_timer"
         tools:itemCount="4" />
-
-    <!-- END TURN Button -->
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnEndTurn"
-        android:layout_width="0dp"
-        android:layout_height="64dp"
-        android:text="END TURN"
-        android:textSize="16sp"
-        android:backgroundTint="@color/accent"
-        app:cornerRadius="12dp"
-        app:layout_constraintTop_toBottomOf="@id/rvPlayerTimers"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnPauseResume"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp" />
 
     <!-- PAUSE Button -->
     <com.google.android.material.button.MaterialButton
@@ -87,11 +91,10 @@
         android:textSize="14sp"
         android:backgroundTint="@color/primary"
         app:cornerRadius="12dp"
-        app:layout_constraintTop_toBottomOf="@id/rvPlayerTimers"
-        app:layout_constraintStart_toEndOf="@id/btnEndTurn"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnEndGame"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="0dp"
         android:layout_marginEnd="8dp" />
 
     <!-- END GAME Button (Outlined) -->
@@ -105,10 +108,9 @@
         android:textColor="@color/text_primary"
         app:strokeColor="@color/text_primary"
         app:cornerRadius="12dp"
-        app:layout_constraintTop_toBottomOf="@id/rvPlayerTimers"
         app:layout_constraintStart_toEndOf="@id/btnPauseResume"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginStart="8dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

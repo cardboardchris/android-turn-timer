@@ -1,6 +1,8 @@
 package com.example.turntimer.adapter
 
 import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -62,12 +64,15 @@ class PlayerTimerAdapter : RecyclerView.Adapter<PlayerTimerAdapter.PlayerTimerVi
             binding.tvPlayerName.text = player.name
             binding.tvPlayerTime.text = formatTime(player.elapsedMillis)
 
-            // Highlight active player with green background
+            // Set color dot background
+            (binding.viewColorDot.background.mutate() as GradientDrawable).setColor(player.color)
+
+            // Highlight active player with bold text (instead of background color)
             if (isActive) {
-                binding.itemRoot.setBackgroundColor(
-                    ContextCompat.getColor(binding.root.context, R.color.primary)
-                )
+                binding.tvPlayerName.setTypeface(null, Typeface.BOLD)
+                binding.itemRoot.setBackgroundColor(Color.TRANSPARENT)
             } else {
+                binding.tvPlayerName.setTypeface(null, Typeface.NORMAL)
                 binding.itemRoot.setBackgroundColor(Color.TRANSPARENT)
             }
         }
