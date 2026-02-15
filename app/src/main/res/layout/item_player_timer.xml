@@ -13,6 +13,14 @@
     android:gravity="center_vertical"
     android:background="@android:color/transparent">
 
+    <!-- Player Color Dot Indicator -->
+    <View
+        android:id="@+id/viewColorDot"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/color_dot" />
+
     <!-- Player Name -->
     <TextView
         android:id="@+id/tvPlayerName"
