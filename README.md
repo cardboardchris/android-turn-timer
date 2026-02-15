@@ -8,7 +8,8 @@ A multi-player turn timer app for Android, built with Kotlin. Track cumulative t
 - 🔀 Drag-to-reorder player turn order
 - ⏱️ Cumulative timer per player, counting up in MM:SS format
 - ▶️ Start, pause, and resume the game at any time
-- ➡️ "End Turn" button to advance to the next player
+- 👆 Tap anywhere to end the current player's turn
+- 💾 Player names saved between sessions
 - 🔄 Automatic turn cycling — loops back to the first player after the last
 - 📊 Game summary screen showing total accumulated time for each player
 - 📳 Haptic vibration feedback on turn changes
@@ -53,8 +54,8 @@ The APK will be generated in `app/build/outputs/apk/debug/`
 
 ## Usage
 
-1. **Player Setup**: Enter player names (2–5 players required). Drag handles to reorder turn sequence. Tap "START GAME" when ready.
-2. **Game Screen**: The active player's name and timer are shown prominently. All players and their cumulative times are listed below. Use "END TURN" to advance to the next player, "PAUSE" to pause the game, or "END GAME" to finish.
+1. **Player Setup**: Enter player names (2–5 players required). Previously saved player names are automatically loaded. Drag handles to reorder turn sequence. Tap "START GAME" when ready.
+2. **Game Screen**: The active player's name and timer are shown prominently. All players and their cumulative times are listed below. Tap anywhere on the screen to end the current player's turn. Use "PAUSE" to pause the game, or "END GAME" to finish.
 3. **Game Summary**: After ending the game, view each player's total accumulated time. Tap "NEW GAME" to return to setup and start fresh.
 
 ## Tech Stack
