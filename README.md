@@ -1,16 +1,20 @@
 # Turn Timer - Android App
 
-A simple and elegant turn timer app for Android, built with Kotlin.
+A multi-player turn timer app for Android, built with Kotlin. Track cumulative time per player across rounds — perfect for board games, debates, or any turn-based activities.
 
 ## Features
 
-- ⏱️ Precise countdown timer with millisecond accuracy
-- 👥 Track turns for multiple players
-- 🎮 Perfect for board games, debates, or any turn-based activities
-- ⚙️ Quick time presets (30s, 60s, 120s)
-- 🎨 Modern Material Design UI with dark theme
-- ▶️ Start, pause, and reset controls
-- ➡️ Easy "Next Turn" button to advance players
+- 👥 Add up to 5 players by name
+- 🔀 Drag-to-reorder player turn order
+- ⏱️ Cumulative timer per player, counting up in MM:SS format
+- ▶️ Start, pause, and resume the game at any time
+- ➡️ "End Turn" button to advance to the next player
+- 🔄 Automatic turn cycling — loops back to the first player after the last
+- 📊 Game summary screen showing total accumulated time for each player
+- 📳 Haptic vibration feedback on turn changes
+- 💡 Screen stays on during active play
+- 🛡️ Back button confirmation to prevent accidental game exit
+- 🎨 Modern Material Design 3 dark theme
 
 ## Building the Project
 
@@ -18,7 +22,7 @@ A simple and elegant turn timer app for Android, built with Kotlin.
 
 - Android Studio (latest version recommended)
 - Android SDK 24 or higher
-- JDK 8 or higher
+- JDK 17 or higher
 
 ### Steps to Build
 
@@ -49,19 +53,19 @@ The APK will be generated in `app/build/outputs/apk/debug/`
 
 ## Usage
 
-1. **Select Time**: Choose a time preset (30s, 60s, or 120s) at the bottom
-2. **Start Timer**: Tap the green START button to begin countdown
-3. **Pause/Resume**: Tap PAUSE to stop, tap again to resume
-4. **Reset**: Reset the current player's timer to the selected preset
-5. **Next Turn**: Move to the next player and reset the timer
+1. **Player Setup**: Enter player names (2–5 players required). Drag handles to reorder turn sequence. Tap "START GAME" when ready.
+2. **Game Screen**: The active player's name and timer are shown prominently. All players and their cumulative times are listed below. Use "END TURN" to advance to the next player, "PAUSE" to pause the game, or "END GAME" to finish.
+3. **Game Summary**: After ending the game, view each player's total accumulated time. Tap "NEW GAME" to return to setup and start fresh.
 
 ## Tech Stack
 
 - **Language**: Kotlin
-- **UI**: Material Design 3, View Binding
-- **Architecture**: Single Activity
+- **UI**: Material Design 3, View Binding, XML layouts
+- **Architecture**: Single Activity + Fragments, MVVM pattern
+- **State Management**: ViewModel + StateFlow
+- **Timer**: Coroutine-based flow with wall-clock timestamps
 - **Min SDK**: 24 (Android 7.0)
-- **Target SDK**: 34 (Android 14)
+- **Target SDK**: 35 (Android 15)
 
 ## License
 
