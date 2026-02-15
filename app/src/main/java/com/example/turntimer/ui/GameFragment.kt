@@ -10,6 +10,7 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
@@ -90,14 +91,9 @@ class GameFragment : Fragment() {
     }
 
     /**
-     * Set up button click handlers for End Turn, Pause/Resume, and End Game.
+     * Set up button click handlers for Pause/Resume and End Game.
      */
     private fun setupButtons() {
-        binding.btnEndTurn.setOnClickListener {
-            viewModel.endTurn()
-            triggerHapticFeedback()
-        }
-
         binding.btnPauseResume.setOnClickListener {
             when (viewModel.gameState.value) {
                 GameState.PLAYING -> viewModel.pauseGame()
@@ -138,7 +134,7 @@ class GameFragment : Fragment() {
      * - API 26-30 (O): Uses Vibrator with VibrationEffect
      * - API 24-25: Uses deprecated vibrate(long) method
      */
-    private fun triggerHapticFeedback() {
+    internal fun triggerHapticFeedback() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager = requireContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
             val vibrator = vibratorManager.defaultVibrator
@@ -153,6 +149,24 @@ class GameFragment : Fragment() {
             @Suppress("DEPRECATION")
             vibrator.vibrate(100)
         }
+    }
+
+    /**
+     * Check if a touch event occurred on either the Pause/Resume or End Game button.
+     * Used by MainActivity to exclude button taps from the tap-to-end-turn gesture.
+     */
+    internal fun isTouchOnExcludedButton(event: MotionEvent): Boolean {
+        return isTouchOnView(event, binding.btnPauseResume) ||
+               isTouchOnView(event, binding.btnEndGame)
+    }
+
+    private fun isTouchOnView(event: MotionEvent, view: View): Boolean {
+        val location = IntArray(2)
+        view.getLocationOnScreen(location)
+        val x = event.rawX
+        val y = event.rawY
+        return x >= location[0] && x <= location[0] + view.width &&
+               y >= location[1] && y <= location[1] + view.height
     }
 
     /**
@@ -187,6 +201,9 @@ class GameFragment : Fragment() {
             viewModel.gameState.collect { state ->
                 updateButtonText(state)
                 updateKeepScreenOn(state)
+                
+                // Show tap hint only during PLAYING state
+                binding.tvTapHint.visibility = if (state == GameState.PLAYING) View.VISIBLE else View.GONE
                 
                 // Set background immediately on game start
                 if (state == GameState.PLAYING) {
@@ -274,6 +291,7 @@ class GameFragment : Fragment() {
             binding.tvActivePlayerName.setTextColor(Color.BLACK)
             binding.tvActivePlayerTimer.setTextColor(Color.BLACK)
             binding.tvAllPlayersLabel.setTextColor(0xFF333333.toInt())
+            binding.tvTapHint.setTextColor(0xFF555555.toInt())
             binding.btnPauseResume.setTextColor(Color.BLACK)
             binding.btnEndGame.setTextColor(Color.BLACK)
             binding.btnEndGame.strokeColor = ColorStateList.valueOf(Color.BLACK)
@@ -282,6 +300,7 @@ class GameFragment : Fragment() {
             binding.tvActivePlayerName.setTextColor(Color.WHITE)
             binding.tvActivePlayerTimer.setTextColor(Color.WHITE)
             binding.tvAllPlayersLabel.setTextColor(0xFFAAAAAA.toInt())
+            binding.tvTapHint.setTextColor(0xFFAAAAAA.toInt())
             binding.btnPauseResume.setTextColor(Color.WHITE)
             binding.btnEndGame.setTextColor(Color.WHITE)
             binding.btnEndGame.strokeColor = ColorStateList.valueOf(Color.WHITE)
