@@ -1,22 +1,29 @@
 package com.example.turntimer.viewmodel
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.turntimer.model.GameState
 import com.example.turntimer.model.Player
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 
 /**
  * ViewModel for managing multi-player turn-based game state and timer logic.
  *
  * Features:
- * - Up to 5 players with individual cumulative timers
+ * - Up to 5 players with individual cumulative timers and assigned colors
  * - Coroutine-based ticker using wall-clock timestamps for accurate elapsed time
  * - StateFlow-based reactive state management
  * - Pause/resume support
+ * - Player color persistence to SharedPreferences
  */
-class GameViewModel : ViewModel() {
+@OptIn(ExperimentalCoroutinesApi::class)
+class GameViewModel(private val context: Context? = null) : ViewModel() {
 
     // ========== STATE (StateFlow) ==========
 
@@ -35,6 +42,17 @@ class GameViewModel : ViewModel() {
     private var _accumulatedBeforeTurn: Long = 0L
     private var nextPlayerId = 0
 
+    // ========== SHARED PREFERENCES ==========
+
+    private companion object {
+        private const val PREFS_NAME = "turn_timer_prefs"
+        private const val KEY_PLAYER_NAMES = "player_names"
+    }
+
+    private val prefs by lazy {
+        context?.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+    }
+
     // ========== TIMER TICKER (Coroutine Flow) ==========
 
     private val tickerFlow = flow {
@@ -45,6 +63,14 @@ class GameViewModel : ViewModel() {
     }
 
     init {
+        // Load saved players with colors
+        val savedPlayers = loadSavedPlayers()
+        _players.value = savedPlayers.mapIndexed { index, (name, color) ->
+            Player(id = index, name = name, color = color)
+        }.also { players ->
+            nextPlayerId = players.size
+        }
+
         // Auto-start/stop ticker based on game state
         _gameState
             .flatMapLatest { state ->
@@ -74,6 +100,7 @@ class GameViewModel : ViewModel() {
 
     /**
      * Add a new player to the game (max 5 players).
+     * Auto-assigns the next available color from Player.PALETTE.
      *
      * @param name Player name (whitespace will be trimmed)
      * @return true if added successfully, false if rejected (empty name or max players reached)
@@ -83,9 +110,11 @@ class GameViewModel : ViewModel() {
         if (trimmedName.isEmpty()) return false
         if (_players.value.size >= 5) return false
 
+        val assignedColor = Player.getNextAvailableColor(getUsedColors())
         val newPlayer = Player(
             id = nextPlayerId++,
             name = trimmedName,
+            color = assignedColor,
             elapsedMillis = 0L
         )
         _players.value = _players.value + newPlayer
@@ -125,10 +154,12 @@ class GameViewModel : ViewModel() {
 
     /**
      * Start the game (transition to PLAYING state).
+     * Saves current player names and colors.
      * Sets active player to index 0 and records the turn start timestamp.
      */
     fun startGame() {
         if (!canStartGame()) return
+        savePlayers()
         _activePlayerIndex.value = 0
         _turnStartTimestamp = System.currentTimeMillis()
         _accumulatedBeforeTurn = 0L
@@ -215,17 +246,105 @@ class GameViewModel : ViewModel() {
 
     /**
      * Reset the game state (clear all players, return to SETUP).
+     * Loads saved players with their colors for the next game.
      */
     fun resetGame() {
-        _players.value = emptyList()
+        val savedPlayers = loadSavedPlayers()
+        _players.value = savedPlayers.mapIndexed { index, (name, color) ->
+            Player(id = index, name = name, color = color)
+        }.also { players ->
+            nextPlayerId = players.size
+        }
         _activePlayerIndex.value = 0
         _gameState.value = GameState.SETUP
         _turnStartTimestamp = 0L
         _accumulatedBeforeTurn = 0L
-        nextPlayerId = 0
     }
 
     // ========== UTILITY ==========
+
+    /**
+     * Get the set of colors currently in use by players.
+     *
+     * @return Set of ARGB color integers
+     */
+    fun getUsedColors(): Set<Int> {
+        return _players.value.map { it.color }.toSet()
+    }
+
+    /**
+     * Change a player's color.
+     * Enforces uniqueness: rejects change if the new color is already in use by another player.
+     *
+     * @param playerId The player's unique ID
+     * @param newColor New ARGB color value
+     * @return true if color changed successfully, false if color is already in use
+     */
+    fun changePlayerColor(playerId: Int, newColor: Int): Boolean {
+        val player = _players.value.find { it.id == playerId } ?: return false
+        
+        // Check if newColor is already used by another player
+        val usedColors = getUsedColors() - player.color
+        if (newColor in usedColors) return false
+        
+        val updatedPlayers = _players.value.map { p ->
+            if (p.id == playerId) p.copy(color = newColor) else p
+        }
+        _players.value = updatedPlayers
+        return true
+    }
+
+    /**
+     * Save current players (names and colors) to SharedPreferences.
+     * Format: JSONArray of JSONObjects with "name" and "color" fields.
+     */
+    private fun savePlayers() {
+        if (prefs == null) return
+        
+        val jsonArray = JSONArray()
+        _players.value.forEach { player ->
+            val jsonObj = JSONObject().apply {
+                put("name", player.name)
+                put("color", player.color)
+            }
+            jsonArray.put(jsonObj)
+        }
+        prefs?.edit()?.putString(KEY_PLAYER_NAMES, jsonArray.toString())?.apply()
+    }
+
+    /**
+     * Load saved players from SharedPreferences.
+     * Handles migration: tries new JSONObject format first, falls back to legacy string array format.
+     *
+     * @return List of Pair<name, color> tuples
+     */
+    private fun loadSavedPlayers(): List<Pair<String, Int>> {
+        if (prefs == null) return emptyList()
+        
+        val savedJson = prefs?.getString(KEY_PLAYER_NAMES, null) ?: return emptyList()
+        
+        return try {
+            val jsonArray = JSONArray(savedJson)
+            val result = mutableListOf<Pair<String, Int>>()
+            
+            for (i in 0 until jsonArray.length()) {
+                try {
+                    val jsonObj = jsonArray.getJSONObject(i)
+                    val name = jsonObj.getString("name")
+                    val color = jsonObj.getInt("color")
+                    result.add(Pair(name, color))
+                } catch (e: JSONException) {
+                    // Fall back to legacy string format
+                    val name = jsonArray.getString(i)
+                    val color = Player.PALETTE[i % Player.PALETTE.size]
+                    result.add(Pair(name, color))
+                }
+            }
+            result
+        } catch (e: JSONException) {
+            emptyList()
+        }
+    }
 
     /**
      * Format elapsed time in milliseconds to MM:SS format.
