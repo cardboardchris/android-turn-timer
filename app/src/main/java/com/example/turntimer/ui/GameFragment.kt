@@ -1,9 +1,16 @@
 package com.example.turntimer.ui
 
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -12,6 +19,7 @@ import com.example.turntimer.adapter.PlayerTimerAdapter
 import com.example.turntimer.databinding.FragmentGameBinding
 import com.example.turntimer.model.GameState
 import com.example.turntimer.viewmodel.GameViewModel
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
 /**
@@ -23,6 +31,9 @@ import kotlinx.coroutines.launch
  * - Turn management: End Turn button to advance to next player
  * - Pause/Resume button that toggles based on game state
  * - End Game button to finish the game
+ * - Haptic vibration on turn changes
+ * - FLAG_KEEP_SCREEN_ON during active play
+ * - Back button confirmation dialog during active game
  *
  * Uses shared GameViewModel via activityViewModels() for state management.
  */
@@ -47,6 +58,7 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupButtons()
+        setupBackButtonHandler()
         observeGameState()
     }
 
@@ -65,6 +77,7 @@ class GameFragment : Fragment() {
     private fun setupButtons() {
         binding.btnEndTurn.setOnClickListener {
             viewModel.endTurn()
+            triggerHapticFeedback()
         }
 
         binding.btnPauseResume.setOnClickListener {
@@ -81,11 +94,55 @@ class GameFragment : Fragment() {
     }
 
     /**
+     * Set up back button interception with confirmation dialog.
+     * Uses OnBackPressedCallback which is automatically removed when the view is destroyed.
+     */
+    private fun setupBackButtonHandler() {
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    MaterialAlertDialogBuilder(requireContext())
+                        .setTitle("End Game?")
+                        .setMessage("Are you sure you want to end the current game?")
+                        .setPositiveButton("End Game") { _, _ -> viewModel.endGame() }
+                        .setNegativeButton("Cancel", null)
+                        .show()
+                }
+            }
+        )
+    }
+
+    /**
+     * Trigger a short haptic vibration (100ms) on turn changes.
+     * Handles API level differences:
+     * - API 31+ (S): Uses VibratorManager
+     * - API 26-30 (O): Uses Vibrator with VibrationEffect
+     * - API 24-25: Uses deprecated vibrate(long) method
+     */
+    private fun triggerHapticFeedback() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            val vibratorManager = requireContext().getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            val vibrator = vibratorManager.defaultVibrator
+            vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            @Suppress("DEPRECATION")
+            val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
+        } else {
+            @Suppress("DEPRECATION")
+            val vibrator = requireContext().getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            @Suppress("DEPRECATION")
+            vibrator.vibrate(100)
+        }
+    }
+
+    /**
      * Observe StateFlows from GameViewModel and update UI reactively.
      *
      * Three separate collectors:
      * 1. players + activePlayerIndex: Update active player display and RecyclerView
-     * 2. gameState: Toggle Pause/Resume button text
+     * 2. gameState: Toggle Pause/Resume button text and manage FLAG_KEEP_SCREEN_ON
      */
     private fun observeGameState() {
         // Observe players and activePlayerIndex together
@@ -103,10 +160,11 @@ class GameFragment : Fragment() {
             }
         }
 
-        // Observe gameState to toggle button text
+        // Observe gameState to toggle button text and screen-on flag
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.gameState.collect { state ->
                 updateButtonText(state)
+                updateKeepScreenOn(state)
             }
         }
     }
@@ -139,8 +197,25 @@ class GameFragment : Fragment() {
         }
     }
 
+    /**
+     * Toggle FLAG_KEEP_SCREEN_ON based on game state.
+     * Screen stays on during PLAYING, flag is cleared during PAUSED/FINISHED/SETUP.
+     *
+     * @param state Current game state
+     */
+    private fun updateKeepScreenOn(state: GameState) {
+        activity?.window?.let { window ->
+            when (state) {
+                GameState.PLAYING -> window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                else -> window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
+        // Clear FLAG_KEEP_SCREEN_ON to prevent battery drain
+        activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         _binding = null
     }
 }
