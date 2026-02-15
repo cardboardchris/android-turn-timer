@@ -1,126 +1,85 @@
 package com.example.turntimer
 
 import android.os.Bundle
-import android.os.CountDownTimer
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.example.turntimer.databinding.ActivityMainBinding
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import com.example.turntimer.model.GameState
+import com.example.turntimer.ui.GameFragment
+import com.example.turntimer.ui.GameSummaryFragment
+import com.example.turntimer.ui.PlayerSetupFragment
+import com.example.turntimer.viewmodel.GameViewModel
+import kotlinx.coroutines.launch
 
+/**
+ * Main Activity serving as a thin Fragment host.
+ *
+ * Responsibilities:
+ * - Hosts a single FragmentContainerView (FrameLayout)
+ * - Observes GameViewModel.gameState to drive fragment swaps
+ * - Does NOT contain any game logic — purely navigation
+ *
+ * Fragment mapping:
+ * - SETUP → PlayerSetupFragment
+ * - PLAYING / PAUSED → GameFragment
+ * - FINISHED → GameSummaryFragment
+ */
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMainBinding
-    private var timer: CountDownTimer? = null
-    private var currentPlayer = 1
-    private var timeLeftInMillis: Long = 60000 // Default 60 seconds
-    private var defaultTimeInMillis: Long = 60000
-    private var isTimerRunning = false
+
+    private val viewModel: GameViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        setupListeners()
-        updateUI()
+        // Load initial fragment only on first creation (not on config change)
+        if (savedInstanceState == null) {
+            showFragment(PlayerSetupFragment())
+        }
+
+        observeGameState()
     }
 
-    private fun setupListeners() {
-        binding.btnStartPause.setOnClickListener {
-            if (isTimerRunning) {
-                pauseTimer()
-            } else {
-                startTimer()
+    /**
+     * Observe GameViewModel.gameState and swap fragments accordingly.
+     * Checks current fragment type before swapping to avoid redundant transactions.
+     */
+    private fun observeGameState() {
+        lifecycleScope.launch {
+            viewModel.gameState.collect { state ->
+                val currentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+
+                when (state) {
+                    GameState.SETUP -> {
+                        if (currentFragment !is PlayerSetupFragment) {
+                            showFragment(PlayerSetupFragment())
+                        }
+                    }
+                    GameState.PLAYING, GameState.PAUSED -> {
+                        if (currentFragment !is GameFragment) {
+                            showFragment(GameFragment())
+                        }
+                    }
+                    GameState.FINISHED -> {
+                        if (currentFragment !is GameSummaryFragment) {
+                            showFragment(GameSummaryFragment())
+                        }
+                    }
+                }
             }
         }
-
-        binding.btnReset.setOnClickListener {
-            resetTimer()
-        }
-
-        binding.btnNextTurn.setOnClickListener {
-            nextTurn()
-        }
-
-        binding.btnSetTime30.setOnClickListener {
-            setDefaultTime(30000)
-        }
-
-        binding.btnSetTime60.setOnClickListener {
-            setDefaultTime(60000)
-        }
-
-        binding.btnSetTime120.setOnClickListener {
-            setDefaultTime(120000)
-        }
     }
 
-    private fun startTimer() {
-        timer = object : CountDownTimer(timeLeftInMillis, 10) {
-            override fun onTick(millisUntilFinished: Long) {
-                timeLeftInMillis = millisUntilFinished
-                updateTimerDisplay()
-            }
-
-            override fun onFinish() {
-                isTimerRunning = false
-                timeLeftInMillis = 0
-                updateUI()
-                // Optionally add sound or vibration here
-            }
-        }.start()
-
-        isTimerRunning = true
-        updateUI()
-    }
-
-    private fun pauseTimer() {
-        timer?.cancel()
-        isTimerRunning = false
-        updateUI()
-    }
-
-    private fun resetTimer() {
-        timer?.cancel()
-        timeLeftInMillis = defaultTimeInMillis
-        isTimerRunning = false
-        updateUI()
-    }
-
-    private fun nextTurn() {
-        timer?.cancel()
-        currentPlayer++
-        timeLeftInMillis = defaultTimeInMillis
-        isTimerRunning = false
-        updateUI()
-    }
-
-    private fun setDefaultTime(millis: Long) {
-        defaultTimeInMillis = millis
-        if (!isTimerRunning) {
-            timeLeftInMillis = millis
-            updateUI()
-        }
-    }
-
-    private fun updateUI() {
-        updateTimerDisplay()
-        binding.tvCurrentPlayer.text = "Player $currentPlayer"
-        binding.btnStartPause.text = if (isTimerRunning) "PAUSE" else "START"
-        
-        // Update button backgrounds to show selected time
-        binding.btnSetTime30.alpha = if (defaultTimeInMillis == 30000L) 1.0f else 0.5f
-        binding.btnSetTime60.alpha = if (defaultTimeInMillis == 60000L) 1.0f else 0.5f
-        binding.btnSetTime120.alpha = if (defaultTimeInMillis == 120000L) 1.0f else 0.5f
-    }
-
-    private fun updateTimerDisplay() {
-        val minutes = (timeLeftInMillis / 1000) / 60
-        val seconds = (timeLeftInMillis / 1000) % 60
-        val millis = (timeLeftInMillis % 1000) / 10
-
-        binding.tvTimer.text = String.format("%02d:%02d.%02d", minutes, seconds, millis)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        timer?.cancel()
+    /**
+     * Replace the current fragment in the container.
+     * Does NOT add to back stack — navigation is driven by gameState only.
+     *
+     * @param fragment The fragment to display
+     */
+    private fun showFragment(fragment: Fragment) {
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 }

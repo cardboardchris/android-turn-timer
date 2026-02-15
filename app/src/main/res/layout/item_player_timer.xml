@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemRoot"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:minHeight="48dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp"
+    android:gravity="center_vertical"
+    android:background="@android:color/transparent">
+
+    <!-- Player Name -->
+    <TextView
+        android:id="@+id/tvPlayerName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
+        android:gravity="start"
+        tools:text="Player 1" />
+
+    <!-- Player Cumulative Time (MM:SS) -->
+    <TextView
+        android:id="@+id/tvPlayerTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_primary"
+        android:textSize="18sp"
+        android:fontFamily="monospace"
+        android:gravity="end"
+        android:minWidth="60dp"
+        android:layout_marginStart="16dp"
+        tools:text="03:45" />
+
+</LinearLayout>
