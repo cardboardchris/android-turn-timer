@@ -1,11 +1,13 @@
 package com.example.turntimer.viewmodel
 
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.turntimer.model.GameState
 import com.example.turntimer.model.Player
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import org.json.JSONArray
+import org.json.JSONException
 
 /**
  * ViewModel for managing multi-player turn-based game state and timer logic.
@@ -16,7 +18,12 @@ import kotlinx.coroutines.flow.*
  * - StateFlow-based reactive state management
  * - Pause/resume support
  */
-class GameViewModel : ViewModel() {
+class GameViewModel(application: android.app.Application) : AndroidViewModel(application) {
+
+    companion object {
+        private const val PREFS_NAME = "turn_timer_prefs"
+        private const val KEY_PLAYER_NAMES = "player_names"
+    }
 
     // ========== STATE (StateFlow) ==========
 
@@ -52,6 +59,15 @@ class GameViewModel : ViewModel() {
             }
             .onEach { updateActivePlayerElapsedTime() }
             .launchIn(viewModelScope)
+
+        // Load saved player names on initialization
+        val savedNames = loadSavedPlayerNames()
+        if (savedNames.isNotEmpty()) {
+            _players.value = savedNames.mapIndexed { index, name ->
+                Player(id = index, name = name)
+            }
+            nextPlayerId = savedNames.size
+        }
     }
 
     /**
@@ -124,11 +140,44 @@ class GameViewModel : ViewModel() {
     fun canStartGame(): Boolean = _players.value.size >= 2
 
     /**
+     * Save current player names to SharedPreferences.
+     * Only saves names, not turn order or elapsed time.
+     */
+    private fun savePlayerNames() {
+        val names = _players.value.map { it.name }
+        val jsonArray = JSONArray(names)
+        getApplication<android.app.Application>()
+            .getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE)
+            .edit()
+            .putString(KEY_PLAYER_NAMES, jsonArray.toString())
+            .apply()
+    }
+
+    /**
+     * Load saved player names from SharedPreferences.
+     * Returns empty list if no saved data or JSON parsing fails.
+     *
+     * @return List of player names
+     */
+    private fun loadSavedPlayerNames(): List<String> {
+        val prefs = getApplication<android.app.Application>()
+            .getSharedPreferences(PREFS_NAME, android.content.Context.MODE_PRIVATE)
+        val json = prefs.getString(KEY_PLAYER_NAMES, null) ?: return emptyList()
+        return try {
+            val jsonArray = JSONArray(json)
+            (0 until jsonArray.length()).map { jsonArray.getString(it) }
+        } catch (e: JSONException) {
+            emptyList()
+        }
+    }
+
+    /**
      * Start the game (transition to PLAYING state).
      * Sets active player to index 0 and records the turn start timestamp.
      */
     fun startGame() {
         if (!canStartGame()) return
+        savePlayerNames()
         _activePlayerIndex.value = 0
         _turnStartTimestamp = System.currentTimeMillis()
         _accumulatedBeforeTurn = 0L
@@ -217,12 +266,15 @@ class GameViewModel : ViewModel() {
      * Reset the game state (clear all players, return to SETUP).
      */
     fun resetGame() {
-        _players.value = emptyList()
+        val savedNames = loadSavedPlayerNames()
+        _players.value = savedNames.mapIndexed { index, name ->
+            Player(id = index, name = name)
+        }
         _activePlayerIndex.value = 0
         _gameState.value = GameState.SETUP
         _turnStartTimestamp = 0L
         _accumulatedBeforeTurn = 0L
-        nextPlayerId = 0
+        nextPlayerId = savedNames.size
     }
 
     // ========== UTILITY ==========
