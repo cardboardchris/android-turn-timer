@@ -72,14 +72,10 @@ class GameFragment : Fragment() {
     }
 
     /**
-     * Set up button click handlers for End Turn, Pause/Resume, and End Game.
+     * Set up button click handlers for Pause/Resume and End Game.
+     * Tap-to-end-turn functionality is handled via onViewCreated root view touch listener.
      */
     private fun setupButtons() {
-        binding.btnEndTurn.setOnClickListener {
-            viewModel.endTurn()
-            triggerHapticFeedback()
-        }
-
         binding.btnPauseResume.setOnClickListener {
             when (viewModel.gameState.value) {
                 GameState.PLAYING -> viewModel.pauseGame()
