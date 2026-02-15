@@ -7,9 +7,11 @@ import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import kotlin.math.abs
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -28,7 +30,7 @@ import kotlinx.coroutines.launch
  * Features:
  * - Display active player name and timer prominently
  * - RecyclerView showing all players with their cumulative times
- * - Turn management: End Turn button to advance to next player
+ * - Turn management: Tap anywhere to advance to next player
  * - Pause/Resume button that toggles based on game state
  * - End Game button to finish the game
  * - Haptic vibration on turn changes
@@ -44,6 +46,9 @@ class GameFragment : Fragment() {
 
     private val viewModel: GameViewModel by activityViewModels()
     private lateinit var adapter: PlayerTimerAdapter
+    private var lastTurnEndTime: Long = 0L
+    private var touchDownX: Float = 0f
+    private var touchDownY: Float = 0f
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +63,7 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupButtons()
+        setupTapToEndTurn()
         setupBackButtonHandler()
         observeGameState()
     }
@@ -87,6 +93,70 @@ class GameFragment : Fragment() {
         binding.btnEndGame.setOnClickListener {
             viewModel.endGame()
         }
+    }
+
+    /**
+     * Set up tap-anywhere-to-end-turn gesture on root view.
+     * 
+     * Behavior:
+     * - Only active during PLAYING state
+     * - Distinguishes tap from scroll (30px movement threshold)
+     * - Excludes Pause and End Game button areas
+     * - 300ms debounce prevents accidental double-taps
+     * - Triggers haptic feedback on successful turn end
+     */
+    private fun setupTapToEndTurn() {
+        binding.root.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    touchDownX = event.rawX
+                    touchDownY = event.rawY
+                    false // Don't consume — let children handle if needed
+                }
+                MotionEvent.ACTION_UP -> {
+                    // Only end turn if game is PLAYING
+                    if (viewModel.gameState.value != GameState.PLAYING) return@setOnTouchListener false
+
+                    // Check for minimal movement (distinguish tap from scroll)
+                    val dx = abs(event.rawX - touchDownX)
+                    val dy = abs(event.rawY - touchDownY)
+                    if (dx > 30f || dy > 30f) return@setOnTouchListener false
+
+                    // Check if touch is on excluded buttons
+                    if (isTouchOnView(event, binding.btnPauseResume) ||
+                        isTouchOnView(event, binding.btnEndGame)) {
+                        return@setOnTouchListener false
+                    }
+
+                    // Debounce: 300ms cooldown
+                    val now = System.currentTimeMillis()
+                    if (now - lastTurnEndTime < 300) return@setOnTouchListener true
+                    lastTurnEndTime = now
+
+                    viewModel.endTurn()
+                    triggerHapticFeedback()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    /**
+     * Check if a touch event occurred within the bounds of a specific view.
+     * Uses screen coordinates for accurate exclusion zone detection.
+     *
+     * @param event The MotionEvent to check
+     * @param view The view to test against
+     * @return true if touch is within view bounds, false otherwise
+     */
+    private fun isTouchOnView(event: MotionEvent, view: View): Boolean {
+        val location = IntArray(2)
+        view.getLocationOnScreen(location)
+        val x = event.rawX
+        val y = event.rawY
+        return x >= location[0] && x <= location[0] + view.width &&
+               y >= location[1] && y <= location[1] + view.height
     }
 
     /**
@@ -161,6 +231,8 @@ class GameFragment : Fragment() {
             viewModel.gameState.collect { state ->
                 updateButtonText(state)
                 updateKeepScreenOn(state)
+                // Show hint only during PLAYING
+                binding.tvTapHint.visibility = if (state == GameState.PLAYING) View.VISIBLE else View.GONE
             }
         }
     }
