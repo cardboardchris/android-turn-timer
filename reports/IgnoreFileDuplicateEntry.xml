@@ -1,0 +1,38 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/.gitignore</file>
+  <line>37</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.gitignore" />
+  <problem_class id="IgnoreFileDuplicateEntry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Ignore file duplicates</problem_class>
+  <description>&lt;code&gt;local.properties&lt;/code&gt; pattern is defined more than once #loc</description>
+  <highlighted_element>local.properties</highlighted_element>
+  <language>IgnoreLang</language>
+  <offset>0</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.gitignore</file>
+  <line>49</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.gitignore" />
+  <problem_class id="IgnoreFileDuplicateEntry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Ignore file duplicates</problem_class>
+  <description>&lt;code&gt;*.iml&lt;/code&gt; pattern is defined more than once #loc</description>
+  <highlighted_element>*.iml</highlighted_element>
+  <language>IgnoreLang</language>
+  <offset>0</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.gitignore</file>
+  <line>57</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.gitignore" />
+  <problem_class id="IgnoreFileDuplicateEntry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Ignore file duplicates</problem_class>
+  <description>&lt;code&gt;.externalNativeBuild&lt;/code&gt; pattern is defined more than once #loc</description>
+  <highlighted_element>.externalNativeBuild</highlighted_element>
+  <language>IgnoreLang</language>
+  <offset>0</offset>
+  <length>20</length>
+</problem>
+</problems>

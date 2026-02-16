@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.turntimer.databinding.ItemPlayerTimerBinding
 import com.example.turntimer.model.Player
+import java.util.Locale
 
 /**
  * RecyclerView adapter for displaying players and their cumulative timers during a game.
@@ -84,7 +85,7 @@ class PlayerTimerAdapter : RecyclerView.Adapter<PlayerTimerAdapter.PlayerTimerVi
         private fun formatTime(millis: Long): String {
             val minutes = millis / 60000
             val seconds = (millis / 1000) % 60
-            return String.format("%02d:%02d", minutes, seconds)
+            return String.format(Locale.US, "%02d:%02d", minutes, seconds)
         }
     }
 }

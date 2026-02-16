@@ -1,0 +1,58 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/turntimer/adapter/PlayerSummaryAdapter.kt</file>
+  <line>57</line>
+  <module>TurnTimer.app.main</module>
+  <package>com.example.turntimer.adapter</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/example/turntimer/adapter/PlayerSummaryAdapter.kt" />
+  <problem_class id="AndroidLintSetTextI18n" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TextView Internationalization</problem_class>
+  <hints />
+  <description>&lt;html&gt;Do not concatenate text displayed with &lt;code&gt;setText&lt;/code&gt;. Use resource string with placeholders.&lt;/html&gt;</description>
+  <highlighted_element>&quot;${position + 1}.&quot;</highlighted_element>
+  <language>kotlin</language>
+  <offset>44</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/turntimer/adapter/PlayerSummaryAdapter.kt</file>
+  <line>57</line>
+  <module>TurnTimer.app.main</module>
+  <package>com.example.turntimer.adapter</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/example/turntimer/adapter/PlayerSummaryAdapter.kt" />
+  <problem_class id="AndroidLintSetTextI18n" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TextView Internationalization</problem_class>
+  <hints />
+  <description>&lt;html&gt;Do not concatenate text displayed with &lt;code&gt;setText&lt;/code&gt;. Use resource string with placeholders.&lt;/html&gt;</description>
+  <highlighted_element>position + 1</highlighted_element>
+  <language>kotlin</language>
+  <offset>47</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/turntimer/ui/PlayerSetupFragment.kt</file>
+  <line>116</line>
+  <module>TurnTimer.app.main</module>
+  <package>com.example.turntimer.ui</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/example/turntimer/ui/PlayerSetupFragment.kt" />
+  <problem_class id="AndroidLintSetTextI18n" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TextView Internationalization</problem_class>
+  <hints />
+  <description>&lt;html&gt;Do not concatenate text displayed with &lt;code&gt;setText&lt;/code&gt;. Use resource string with placeholders.&lt;/html&gt;</description>
+  <highlighted_element>&quot;${players.size}/5 Players&quot;</highlighted_element>
+  <language>kotlin</language>
+  <offset>37</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/turntimer/ui/PlayerSetupFragment.kt</file>
+  <line>116</line>
+  <module>TurnTimer.app.main</module>
+  <package>com.example.turntimer.ui</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/example/turntimer/ui/PlayerSetupFragment.kt" />
+  <problem_class id="AndroidLintSetTextI18n" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">TextView Internationalization</problem_class>
+  <hints />
+  <description>&lt;html&gt;String literal in &lt;code&gt;setText&lt;/code&gt; can not be translated. Use Android resources instead.&lt;/html&gt;</description>
+  <highlighted_element>/5 Players</highlighted_element>
+  <language>kotlin</language>
+  <offset>53</offset>
+  <length>10</length>
+</problem>
+</problems>

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.turntimer.databinding.ItemPlayerSummaryBinding
 import com.example.turntimer.model.Player
+import java.util.Locale
 
 /**
  * RecyclerView adapter for displaying player summary results after a game ends.
@@ -71,7 +72,7 @@ class PlayerSummaryAdapter : RecyclerView.Adapter<PlayerSummaryAdapter.PlayerSum
         private fun formatTime(millis: Long): String {
             val minutes = millis / 60000
             val seconds = (millis / 1000) % 60
-            return String.format("%02d:%02d", minutes, seconds)
+            return String.format(Locale.US, "%02d:%02d", minutes, seconds)
         }
     }
 }

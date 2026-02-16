@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/example/turntimer/ui/GameFragment.kt</file>
+  <line>232</line>
+  <module>TurnTimer.app.main</module>
+  <package>com.example.turntimer.ui</package>
+  <entry_point TYPE="method" FQNAME="com.example.turntimer.ui.GameFragment void updatePlayerUI(java.util.List&lt;com.example.turntimer.model.Player&gt; players, int activeIndex)" />
+  <problem_class id="RemoveRedundantQualifierName" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Redundant qualifier name</problem_class>
+  <description>Remove redundant qualifier name</description>
+  <highlighted_element>com.example.turntimer.model</highlighted_element>
+  <language>kotlin</language>
+  <offset>45</offset>
+  <length>27</length>
+</problem>
+</problems>

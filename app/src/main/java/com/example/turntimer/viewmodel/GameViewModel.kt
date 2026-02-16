@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.turntimer.model.GameState
 import com.example.turntimer.model.Player
+import java.util.Locale
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -353,6 +354,6 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     fun formatTime(millis: Long): String {
         val minutes = millis / 60000
         val seconds = (millis / 1000) % 60
-        return String.format("%02d:%02d", minutes, seconds)
+        return String.format(Locale.US, "%02d:%02d", minutes, seconds)
     }
 }

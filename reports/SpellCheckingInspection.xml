@@ -1,0 +1,386 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md</file>
+  <line>14</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'fastlane'</description>
+  <highlighted_element>fastlane</highlighted_element>
+  <language>Markdown</language>
+  <offset>130</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md</file>
+  <line>15</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'sisyphus'</description>
+  <highlighted_element>sisyphus</highlighted_element>
+  <language>Markdown</language>
+  <offset>3</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md</file>
+  <line>78</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'cwebp'</description>
+  <highlighted_element>cwebp</highlighted_element>
+  <language>Markdown</language>
+  <offset>23</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md</file>
+  <line>78</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'libwebp'</description>
+  <highlighted_element>libwebp</highlighted_element>
+  <language>Markdown</language>
+  <offset>44</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md</file>
+  <line>241</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'sdkmanager'</description>
+  <highlighted_element>sdkmanager</highlighted_element>
+  <language>Markdown</language>
+  <offset>84</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md</file>
+  <line>259</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/notepads/fix-android-build/learnings.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'sisyphus'</description>
+  <highlighted_element>sisyphus</highlighted_element>
+  <language>Markdown</language>
+  <offset>21</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/notepads/player-color-picker/learnings.md</file>
+  <line>120</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/notepads/player-color-picker/learnings.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'Utlity'</description>
+  <highlighted_element>Utlity</highlighted_element>
+  <language>Markdown</language>
+  <offset>2</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/fix-android-build.md</file>
+  <line>447</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/fix-android-build.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'deps'</description>
+  <highlighted_element>deps</highlighted_element>
+  <language>Markdown</language>
+  <offset>75</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/fix-android-build.md</file>
+  <line>745</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/fix-android-build.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'sdkmanager'</description>
+  <highlighted_element>sdkmanager</highlighted_element>
+  <language>Markdown</language>
+  <offset>49</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/player-color-picker.md</file>
+  <line>105</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/player-color-picker.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'Koin'</description>
+  <highlighted_element>Koin</highlighted_element>
+  <language>Markdown</language>
+  <offset>36</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/player-color-picker.md</file>
+  <line>819</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/player-color-picker.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'deps'</description>
+  <highlighted_element>deps</highlighted_element>
+  <language>Markdown</language>
+  <offset>47</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/tap-to-end-turn-fix.md</file>
+  <line>726</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/tap-to-end-turn-fix.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'deps'</description>
+  <highlighted_element>deps</highlighted_element>
+  <language>Markdown</language>
+  <offset>55</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md</file>
+  <line>112</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'Koin'</description>
+  <highlighted_element>Koin</highlighted_element>
+  <language>Markdown</language>
+  <offset>24</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md</file>
+  <line>234</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'Koin'</description>
+  <highlighted_element>Koin</highlighted_element>
+  <language>Markdown</language>
+  <offset>58</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md</file>
+  <line>256</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'deps'</description>
+  <highlighted_element>deps</highlighted_element>
+  <language>Markdown</language>
+  <offset>86</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md</file>
+  <line>594</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'unicode'</description>
+  <highlighted_element>unicode</highlighted_element>
+  <language>Markdown</language>
+  <offset>57</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md</file>
+  <line>1281</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'sisyphus'</description>
+  <highlighted_element>sisyphus</highlighted_element>
+  <language>Markdown</language>
+  <offset>12</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md</file>
+  <line>1457</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'deps'</description>
+  <highlighted_element>deps</highlighted_element>
+  <language>Markdown</language>
+  <offset>61</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md</file>
+  <line>1461</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/.sisyphus/plans/turn-timer-overhaul.md" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'sisyphus'</description>
+  <highlighted_element>sisyphus</highlighted_element>
+  <language>Markdown</language>
+  <offset>7</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/build.log</file>
+  <line>1</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/build.log" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'metivier'</description>
+  <highlighted_element>metivier</highlighted_element>
+  <language>textmate</language>
+  <offset>44</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties</file>
+  <line>2</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'AARCH'</description>
+  <highlighted_element>AARCH</highlighted_element>
+  <language>Properties</language>
+  <offset>22</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties</file>
+  <line>4</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'AARCH'</description>
+  <highlighted_element>AARCH</highlighted_element>
+  <language>Properties</language>
+  <offset>19</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties</file>
+  <line>6</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'AARCH'</description>
+  <highlighted_element>AARCH</highlighted_element>
+  <language>Properties</language>
+  <offset>20</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties</file>
+  <line>8</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'AARCH'</description>
+  <highlighted_element>AARCH</highlighted_element>
+  <language>Properties</language>
+  <offset>18</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties</file>
+  <line>10</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'AARCH'</description>
+  <highlighted_element>AARCH</highlighted_element>
+  <language>Properties</language>
+  <offset>21</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradlew.bat</file>
+  <line>16</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'SPDX'</description>
+  <highlighted_element>SPDX</highlighted_element>
+  <language>textmate</language>
+  <offset>5</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradlew.bat</file>
+  <line>27</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'setlocal'</description>
+  <highlighted_element>setlocal</highlighted_element>
+  <language>textmate</language>
+  <offset>24</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradlew.bat</file>
+  <line>39</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'Dfile'</description>
+  <highlighted_element>Dfile</highlighted_element>
+  <language>textmate</language>
+  <offset>22</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradlew.bat</file>
+  <line>46</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'ERRORLEVEL'</description>
+  <highlighted_element>ERRORLEVEL</highlighted_element>
+  <language>textmate</language>
+  <offset>4</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradlew.bat</file>
+  <line>76</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'Dorg'</description>
+  <highlighted_element>Dorg</highlighted_element>
+  <language>textmate</language>
+  <offset>60</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradlew.bat</file>
+  <line>76</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'appname'</description>
+  <highlighted_element>appname</highlighted_element>
+  <language>textmate</language>
+  <offset>72</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/gradlew.bat</file>
+  <line>91</line>
+  <module>TurnTimer</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/gradlew.bat" />
+  <problem_class id="SpellCheckingInspection" severity="TYPO" attribute_key="TYPO">Spelling</problem_class>
+  <description>Typo: In word 'endlocal'</description>
+  <highlighted_element>endlocal</highlighted_element>
+  <language>textmate</language>
+  <offset>24</offset>
+  <length>8</length>
+</problem>
+</problems>
