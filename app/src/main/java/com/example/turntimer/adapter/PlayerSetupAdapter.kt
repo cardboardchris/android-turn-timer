@@ -1,5 +1,6 @@
 package com.example.turntimer.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
@@ -52,6 +53,7 @@ class PlayerSetupAdapter(
         return PlayerViewHolder(binding, onRemoveClick, onColorSelected)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         holder.bind(players[position], unavailableColors)
         
