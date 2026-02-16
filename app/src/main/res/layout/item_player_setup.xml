@@ -21,7 +21,7 @@
              android:layout_width="24dp"
              android:layout_height="24dp"
              android:src="@android:drawable/ic_menu_sort_by_size"
-             android:contentDescription="Drag to reorder"
+             android:contentDescription="@string/drag_to_reorder"
              android:layout_marginEnd="16dp"
              app:tint="#AAAAAA" />
 
@@ -42,7 +42,7 @@
              android:layout_height="32dp"
              android:src="@android:drawable/ic_menu_close_clear_cancel"
              android:background="?attr/selectableItemBackgroundBorderless"
-             android:contentDescription="Remove player"
+             android:contentDescription="@string/remove_player"
              android:layout_marginStart="12dp"
              app:tint="#FF5252" />
 
