@@ -2,6 +2,7 @@ package com.example.turntimer
 
 import android.os.Bundle
 import android.view.MotionEvent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     private var lastTurnEndTime: Long = 0L
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
