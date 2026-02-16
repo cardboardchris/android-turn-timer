@@ -3,8 +3,10 @@
     <string name="app_name">Turn Timer</string>
     <string name="start">START</string>
     <string name="pause">PAUSE</string>
+    <string name="player">Player %1$d</string>
+    <string name="player_count">%1$d/5 Players</string>
+    <string name="player_position">%1$d.</string>
     <string name="reset">RESET</string>
     <string name="next_turn">NEXT TURN</string>
-    <string name="player">Player %1$d</string>
     <string name="time_presets">Time Presets</string>
 </resources>

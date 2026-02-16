@@ -4,6 +4,7 @@ import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.turntimer.R
 import com.example.turntimer.databinding.ItemPlayerSummaryBinding
 import com.example.turntimer.model.Player
 import java.util.Locale
@@ -55,7 +56,7 @@ class PlayerSummaryAdapter : RecyclerView.Adapter<PlayerSummaryAdapter.PlayerSum
          * @param position The position index (used for display number)
          */
         fun bind(player: Player, position: Int) {
-            binding.tvPlayerPosition.text = "${position + 1}."
+            binding.tvPlayerPosition.text = itemView.context.getString(R.string.player_position, position + 1)
             binding.tvPlayerName.text = player.name
             binding.tvPlayerTime.text = formatTime(player.elapsedMillis)
 
