@@ -130,16 +130,16 @@ class GameFragment : Fragment() {
     }
 
     /**
-     * Hide the "All Players" timers section in portrait orientation.
-     * In portrait, the active player timer is the primary focus — showing all player timers
-     * would crowd the smaller vertical space. In landscape, there's room to show everything.
+     * Hide the "All Players" timers section in landscape orientation.
+     * In landscape, the reduced vertical space makes the active player timer the primary focus.
+     * In portrait, there's room to show all player timers below.
      *
      * Since the activity recreates on orientation change (no configChanges in manifest),
      * this check in onViewCreated runs on every rotation.
      */
     private fun configureOrientationVisibility() {
-        val isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
-        val visibility = if (isPortrait) View.GONE else View.VISIBLE
+        val isLandscape = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+        val visibility = if (isLandscape) View.GONE else View.VISIBLE
         binding.tvAllPlayersLabel.visibility = visibility
         binding.rvPlayerTimers.visibility = visibility
     }
