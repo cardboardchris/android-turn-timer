@@ -66,7 +66,7 @@ The APK will be generated in `app/build/outputs/apk/debug/`
 - **State Management**: ViewModel + StateFlow
 - **Timer**: Coroutine-based flow with wall-clock timestamps
 - **Min SDK**: 24 (Android 7.0)
-- **Target SDK**: 35 (Android 15)
+- **Target SDK**: 36 (Android 16)
 
 ## License
 
