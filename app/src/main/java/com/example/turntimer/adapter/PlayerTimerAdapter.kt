@@ -1,5 +1,6 @@
 package com.example.turntimer.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
@@ -20,11 +21,13 @@ class PlayerTimerAdapter : RecyclerView.Adapter<PlayerTimerAdapter.PlayerTimerVi
     private var activePlayerIndex: Int = -1
 
     /**
-     * Update the adapter's player list and active player index, then refresh the RecyclerView.
-     *
-     * @param newPlayers The new list of players to display
-     * @param activeIndex The index of the currently active player (for highlighting)
-     */
+      * Update the adapter's player list and active player index, then refresh the RecyclerView.
+      *
+      * @param newPlayers The new list of players to display
+      * @param activeIndex The index of the currently active player (for highlighting)
+      */
+    // Full list replacement — notifyDataSetChanged is intentional
+    @SuppressLint("NotifyDataSetChanged")
     fun updatePlayers(newPlayers: List<Player>, activeIndex: Int) {
         players = newPlayers
         activePlayerIndex = activeIndex

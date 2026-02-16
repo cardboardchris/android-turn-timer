@@ -31,11 +31,13 @@ class PlayerSetupAdapter(
     var itemTouchHelper: ItemTouchHelper? = null
 
     /**
-     * Update the adapter's player list and unavailable colors, then refresh the RecyclerView.
-     *
-     * @param newPlayers The new list of players to display
-     * @param usedColors The set of colors currently in use by players
-     */
+      * Update the adapter's player list and unavailable colors, then refresh the RecyclerView.
+      *
+      * @param newPlayers The new list of players to display
+      * @param usedColors The set of colors currently in use by players
+      */
+    // Full list replacement — notifyDataSetChanged is intentional
+    @SuppressLint("NotifyDataSetChanged")
     fun updatePlayers(newPlayers: List<Player>, usedColors: Set<Int> = emptySet()) {
         players = newPlayers
         unavailableColors = usedColors

@@ -1,5 +1,6 @@
 package com.example.turntimer.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,10 +19,12 @@ class PlayerSummaryAdapter : RecyclerView.Adapter<PlayerSummaryAdapter.PlayerSum
     private var players: List<Player> = emptyList()
 
     /**
-     * Update the adapter's player list and refresh the RecyclerView.
-     *
-     * @param newPlayers The final list of players with their accumulated times
-     */
+      * Update the adapter's player list and refresh the RecyclerView.
+      *
+      * @param newPlayers The final list of players with their accumulated times
+      */
+    // Full list replacement — notifyDataSetChanged is intentional
+    @SuppressLint("NotifyDataSetChanged")
     fun updatePlayers(newPlayers: List<Player>) {
         players = newPlayers
         notifyDataSetChanged()
