@@ -2,6 +2,7 @@ package com.example.turntimer.viewmodel
 
 import android.app.Application
 import android.content.Context
+import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.turntimer.model.GameState
@@ -113,12 +114,12 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
 
         val assignedColor = Player.getNextAvailableColor(getUsedColors())
         val newPlayer = Player(
-            id = nextPlayerId++,
-            name = trimmedName,
-            color = assignedColor,
-            elapsedMillis = 0L
-        )
-        _players.value = _players.value + newPlayer
+             id = nextPlayerId++,
+             name = trimmedName,
+             color = assignedColor,
+             elapsedMillis = 0L
+         )
+         _players.value += newPlayer
         return true
     }
 
@@ -308,7 +309,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             }
             jsonArray.put(jsonObj)
         }
-        prefs.edit().putString(KEY_PLAYER_NAMES, jsonArray.toString()).apply()
+         prefs.edit { putString(KEY_PLAYER_NAMES, jsonArray.toString()) }
     }
 
     /**
