@@ -6,13 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="24dp">
+    android:padding="24dp"
+    tools:ignore="Overdraw">
 
     <TextView
         android:id="@+id/tvGameSummaryTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Game Summary"
+        android:text="@string/game_summary"
         android:textColor="@color/text_primary"
         android:textSize="32sp"
         android:textStyle="bold"
@@ -37,7 +38,7 @@
         android:id="@+id/btnNewGame"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="NEW GAME"
+        android:text="@string/new_game"
         android:textColor="@color/text_primary"
         android:textSize="16sp"
         app:backgroundTint="@color/accent"

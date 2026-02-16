@@ -1,5 +1,6 @@
 package com.example.turntimer.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
@@ -30,11 +31,13 @@ class PlayerSetupAdapter(
     var itemTouchHelper: ItemTouchHelper? = null
 
     /**
-     * Update the adapter's player list and unavailable colors, then refresh the RecyclerView.
-     *
-     * @param newPlayers The new list of players to display
-     * @param usedColors The set of colors currently in use by players
-     */
+      * Update the adapter's player list and unavailable colors, then refresh the RecyclerView.
+      *
+      * @param newPlayers The new list of players to display
+      * @param usedColors The set of colors currently in use by players
+      */
+    // Full list replacement — notifyDataSetChanged is intentional
+    @SuppressLint("NotifyDataSetChanged")
     fun updatePlayers(newPlayers: List<Player>, usedColors: Set<Int> = emptySet()) {
         players = newPlayers
         unavailableColors = usedColors
@@ -52,6 +55,7 @@ class PlayerSetupAdapter(
         return PlayerViewHolder(binding, onRemoveClick, onColorSelected)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         holder.bind(players[position], unavailableColors)
         

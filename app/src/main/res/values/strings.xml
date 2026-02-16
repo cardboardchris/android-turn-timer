@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Turn Timer</string>
-    <string name="start">START</string>
     <string name="pause">PAUSE</string>
-    <string name="reset">RESET</string>
-    <string name="next_turn">NEXT TURN</string>
-    <string name="player">Player %1$d</string>
-    <string name="time_presets">Time Presets</string>
+    <string name="player_count">%1$d/5 Players</string>
+    <string name="player_position">%1$d.</string>
+    <string name="add">Add</string>
+    <string name="all_players">All Players</string>
+    <string name="default_player_name">Player 1</string>
+    <string name="drag_to_reorder">Drag to reorder</string>
+    <string name="end_game">END GAME</string>
+    <string name="enter_player_name">Enter player name</string>
+    <string name="game_setup">Game Setup</string>
+    <string name="game_summary">Game Summary</string>
+    <string name="new_game">NEW GAME</string>
+    <string name="player_count_default">0/5 Players</string>
+    <string name="remove_player">Remove player</string>
+    <string name="start_game">Start Game</string>
+    <string name="tap_to_end_turn">Tap anywhere to end turn</string>
+    <string name="timer_default">00:00.00</string>
 </resources>

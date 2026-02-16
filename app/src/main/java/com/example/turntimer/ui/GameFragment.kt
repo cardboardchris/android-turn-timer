@@ -229,7 +229,7 @@ class GameFragment : Fragment() {
      * @param players Current list of players
      * @param activeIndex Index of the currently active player
      */
-    private fun updatePlayerUI(players: List<com.example.turntimer.model.Player>, activeIndex: Int) {
+     private fun updatePlayerUI(players: List<Player>, activeIndex: Int) {
         if (players.isEmpty() || activeIndex !in players.indices) return
 
         val activePlayer = players[activeIndex]

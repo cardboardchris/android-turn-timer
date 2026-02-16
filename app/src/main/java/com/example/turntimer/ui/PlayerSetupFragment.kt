@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.turntimer.R
 import com.example.turntimer.adapter.PlayerSetupAdapter
 import com.example.turntimer.databinding.FragmentPlayerSetupBinding
 import com.example.turntimer.model.Player
@@ -113,7 +114,7 @@ class PlayerSetupFragment : Fragment() {
     }
 
     private fun updateUI(players: List<Player>) {
-        binding.tvPlayerCount.text = "${players.size}/5 Players"
+        binding.tvPlayerCount.text = getString(R.string.player_count, players.size)
         updateAddButtonState()
         binding.btnStartGame.isEnabled = viewModel.canStartGame()
     }

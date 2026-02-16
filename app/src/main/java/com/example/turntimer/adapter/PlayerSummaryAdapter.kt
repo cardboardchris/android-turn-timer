@@ -1,11 +1,14 @@
 package com.example.turntimer.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.turntimer.R
 import com.example.turntimer.databinding.ItemPlayerSummaryBinding
 import com.example.turntimer.model.Player
+import java.util.Locale
 
 /**
  * RecyclerView adapter for displaying player summary results after a game ends.
@@ -16,10 +19,12 @@ class PlayerSummaryAdapter : RecyclerView.Adapter<PlayerSummaryAdapter.PlayerSum
     private var players: List<Player> = emptyList()
 
     /**
-     * Update the adapter's player list and refresh the RecyclerView.
-     *
-     * @param newPlayers The final list of players with their accumulated times
-     */
+      * Update the adapter's player list and refresh the RecyclerView.
+      *
+      * @param newPlayers The final list of players with their accumulated times
+      */
+    // Full list replacement — notifyDataSetChanged is intentional
+    @SuppressLint("NotifyDataSetChanged")
     fun updatePlayers(newPlayers: List<Player>) {
         players = newPlayers
         notifyDataSetChanged()
@@ -54,7 +59,7 @@ class PlayerSummaryAdapter : RecyclerView.Adapter<PlayerSummaryAdapter.PlayerSum
          * @param position The position index (used for display number)
          */
         fun bind(player: Player, position: Int) {
-            binding.tvPlayerPosition.text = "${position + 1}."
+            binding.tvPlayerPosition.text = itemView.context.getString(R.string.player_position, position + 1)
             binding.tvPlayerName.text = player.name
             binding.tvPlayerTime.text = formatTime(player.elapsedMillis)
 
@@ -71,7 +76,7 @@ class PlayerSummaryAdapter : RecyclerView.Adapter<PlayerSummaryAdapter.PlayerSum
         private fun formatTime(millis: Long): String {
             val minutes = millis / 60000
             val seconds = (millis / 1000) % 60
-            return String.format("%02d:%02d", minutes, seconds)
+            return String.format(Locale.US, "%02d:%02d", minutes, seconds)
         }
     }
 }

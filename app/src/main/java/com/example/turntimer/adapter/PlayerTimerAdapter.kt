@@ -1,15 +1,15 @@
 package com.example.turntimer.adapter
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.turntimer.R
 import com.example.turntimer.databinding.ItemPlayerTimerBinding
 import com.example.turntimer.model.Player
+import java.util.Locale
 
 /**
  * RecyclerView adapter for displaying players and their cumulative timers during a game.
@@ -21,11 +21,13 @@ class PlayerTimerAdapter : RecyclerView.Adapter<PlayerTimerAdapter.PlayerTimerVi
     private var activePlayerIndex: Int = -1
 
     /**
-     * Update the adapter's player list and active player index, then refresh the RecyclerView.
-     *
-     * @param newPlayers The new list of players to display
-     * @param activeIndex The index of the currently active player (for highlighting)
-     */
+      * Update the adapter's player list and active player index, then refresh the RecyclerView.
+      *
+      * @param newPlayers The new list of players to display
+      * @param activeIndex The index of the currently active player (for highlighting)
+      */
+    // Full list replacement — notifyDataSetChanged is intentional
+    @SuppressLint("NotifyDataSetChanged")
     fun updatePlayers(newPlayers: List<Player>, activeIndex: Int) {
         players = newPlayers
         activePlayerIndex = activeIndex
@@ -86,7 +88,7 @@ class PlayerTimerAdapter : RecyclerView.Adapter<PlayerTimerAdapter.PlayerTimerVi
         private fun formatTime(millis: Long): String {
             val minutes = millis / 60000
             val seconds = (millis / 1000) % 60
-            return String.format("%02d:%02d", minutes, seconds)
+            return String.format(Locale.US, "%02d:%02d", minutes, seconds)
         }
     }
 }
