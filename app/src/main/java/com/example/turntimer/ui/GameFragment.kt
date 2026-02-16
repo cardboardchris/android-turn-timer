@@ -3,6 +3,7 @@ package com.example.turntimer.ui
 import android.animation.ValueAnimator
 import android.content.Context
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -69,6 +70,7 @@ class GameFragment : Fragment() {
         setupRecyclerView()
         setupButtons()
         setupBackButtonHandler()
+        configureOrientationVisibility()
         
         // If game is already PLAYING, set background immediately (rotation case)
         if (viewModel.gameState.value == GameState.PLAYING) {
@@ -125,6 +127,21 @@ class GameFragment : Fragment() {
                 }
             }
         )
+    }
+
+    /**
+     * Hide the "All Players" timers section in portrait orientation.
+     * In portrait, the active player timer is the primary focus — showing all player timers
+     * would crowd the smaller vertical space. In landscape, there's room to show everything.
+     *
+     * Since the activity recreates on orientation change (no configChanges in manifest),
+     * this check in onViewCreated runs on every rotation.
+     */
+    private fun configureOrientationVisibility() {
+        val isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+        val visibility = if (isPortrait) View.GONE else View.VISIBLE
+        binding.tvAllPlayersLabel.visibility = visibility
+        binding.rvPlayerTimers.visibility = visibility
     }
 
     /**
