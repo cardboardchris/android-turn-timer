@@ -6,7 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="24dp">
+    android:padding="24dp"
+    tools:ignore="Overdraw">
 
     <TextView
         android:id="@+id/tvGameSummaryTitle"

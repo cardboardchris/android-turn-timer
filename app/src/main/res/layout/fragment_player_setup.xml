@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#1E1E1E"
     android:padding="24dp"
+    tools:ignore="Overdraw"
     tools:context=".ui.PlayerSetupFragment">
 
     <!-- Title -->
