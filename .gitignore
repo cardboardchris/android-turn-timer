@@ -83,3 +83,6 @@ lint-results*.xml
 *.hprof
 
 .sisyphus/
+
+# Inspection reports
+reports/

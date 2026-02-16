@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,9 +43,24 @@ class GameSummaryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setupEdgeToEdgeInsets()
         setupRecyclerView()
         setupNewGameButton()
         displayResults()
+    }
+
+    private fun setupEdgeToEdgeInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val basePadding = (24 * resources.displayMetrics.density).toInt()
+            view.setPadding(
+                basePadding + systemBars.left,
+                basePadding + systemBars.top,
+                basePadding + systemBars.right,
+                basePadding + systemBars.bottom
+            )
+            insets
+        }
     }
 
     /**
